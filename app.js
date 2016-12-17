@@ -1,6 +1,7 @@
 var express = require("express");
 var bodyParser = require('body-parser');
 var session = require("express-session");
+var MongoClient = require('mongodb').MongoClient;
 //var flash = require('req-flash');
 //var cookieParser = require('cookie-parser');
 var app = express();
@@ -18,6 +19,18 @@ app.use(session({
     saveUninitialized: true
 }));
 //app.use(flash());
+
+var url = 'mongodb://localhost:27017/cgtimes';
+MongoClient.connect(url, function(err, db) {
+    if (err) {
+	console.log(err);
+    } else {
+	console.log(db.collection('employees').find());
+	db.close();
+    }
+});
+
+
 
 app.get("/", (req, res)=>{
     //req.flash('successMessage', 'You are successfully using req-flash');
