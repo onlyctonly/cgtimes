@@ -9,11 +9,16 @@ var subscriberSchema = new mongoose.Schema({
     streetnumber: Number,
     area: String,
     city: String,
-    tk: String,
+    country: String,
+    postcode: String,
+    fee: Number,
+    comment: String,
     responsibleperson: String,
-    valid: Boolean,
+    phone: String,
+    valid: Boolean
     
 });
 
+var Subsciber = mongoose.model('Subsciber', subscriberSchema);
 
-module.exports = {Subsciber}
+module.exports = Subsciber;
