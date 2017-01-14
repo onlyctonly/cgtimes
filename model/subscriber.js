@@ -9,14 +9,13 @@ var subscriberSchema = new mongoose.Schema({
     streetnumber: Number,
     area: String,
     city: String,
+    tk: String,
     country: String,
-    postcode: String,
     fee: Number,
     comment: String,
     responsibleperson: String,
     phone: String,
-    valid: Boolean
-    
+    valid: {type:Boolean, default: true}
 });
 
 var Subsciber = mongoose.model('Subsciber', subscriberSchema);

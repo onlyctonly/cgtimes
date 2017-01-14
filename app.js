@@ -1,57 +1,93 @@
-var express = require("express");
+var mongoose = require('mongoose');
+var express = require('express');
 var bodyParser = require('body-parser');
-var session = require("express-session");
-var MongoClient = require('mongodb').MongoClient;
-//var flash = require('req-flash');
-//var cookieParser = require('cookie-parser');
 var app = express();
 
+// database
+mongoose.connect("mongodb://localhost/test");
+mongoose.Promise = global.Promise;
 
-app.set('view engine', "ejs");
+//data model
+var Subsciber = require('./model/subscriber.js');
 
+// express setup
+
+app.use(express.static('public'));
+app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(session({
-    secret: 'superchina',
-    cookie: {
-	       maxAge: 500*1000,
-    },
-    resave: true,
-    saveUninitialized: true
-}));
-//app.use(flash());
 
-var url = 'mongodb://localhost:27017/cgtimes';
-MongoClient.connect(url, function(err, db) {
-    if (err) {
-	console.log(err);
-    } else {
-	console.log(db.collection('employees').find());
-	db.close();
+//routes
+app.get('/', (req, res)=>{
+    res.render('index.ejs');
+});
+
+// 显示所有的订阅客户
+app.get('/subscribers', (req, res)=>{
+  Subsciber.find({valid:true}).sort({personname:1}).exec((err, docs)=>{
+    res.render('subscribersAll.ejs', {docs:docs});
+  });
+});
+
+// 显示有效订阅客户
+app.get('/subscribersvalid', (req, res)=>{
+  Subsciber.find({valid:true, enddate:{$gt:new Date()}}).sort({personname:1}).exec((err, docs)=>{
+    if (docs.length < 1) {
+      res.send("无期内订阅客户");
     }
+    res.render('subscribersAll.ejs', {docs:docs});
+  });
+});
+
+//显示失效订阅客户
+app.get('/subscribersinvalid', (req, res)=>{
+  Subsciber.find({valid:true, enddate:{$lt:new Date()}}).sort({personname:1}).exec((err, docs)=>{
+    res.render('subscribersAll.ejs', {docs:docs});
+  });
+});
+
+//显示已删除的订阅客户
+app.get('/subscribersdeleted', (req, res)=>{
+  Subsciber.find({valid: false}).sort({personname:1}).exec((err, docs)=>{
+    res.render('subscribersDeleted.ejs', {docs:docs});
+  });
+});
+
+//删除无用的订阅客户
+app.get('/subscribers/delete/:id',(req, res)=>{
+  var id = req.params.id;
+  Subsciber.update({_id:id}, {$set:{valid:false}}, (err, raw)=>{
+    if (err) {
+      res.send('record not found');
+    }
+    res.redirect('back');
+  });
+});
+
+//恢复已经删除的用户
+app.get('/subscribers/recover/:id',(req, res)=>{
+  var id = req.params.id;
+  Subsciber.update({_id:id}, {$set:{valid:true}}, (err, raw)=>{
+    if (err) {
+      res.send('record not found');
+    }
+    res.redirect('back');
+  });
+});
+
+//添加订阅
+app.get('/subscribersadd', (req,res)=>{
+  res.render('subscribersAdd.ejs');
+});
+app.post('/subscribers', (req,res)=>{
+  var newsubscriber = new Subsciber(req.body);
+  newsubscriber.save();
 });
 
 
 
-app.get("/", (req, res)=>{
-    //req.flash('successMessage', 'You are successfully using req-flash');
-    res.render("login.ejs");
-})
-app.post("/login", (req,res)=>{
-    if (req.body.username === "admin" && req.body.password === "admin") {
-	//req.flash('successMessage', 'You are successfully using req-flash');
-	req.session.logged = true;
-	res.redirect('/secrect');
-    } else {
-	//req.flash("wrong info");
-	res.redirect('/');
-    }
-})
-app.get('/secrect', (req, res) =>{
-    if (req.session.logged === true) {
-	res.send('shhhhh!');
-    } else {
-	res.redirect('/');
-    }
-    
-})
-app.listen(3000);
+app.listen(3000, (err)=>{
+  if (err) {
+    console.log(err);
+  }
+  console.log('server is running');
+});

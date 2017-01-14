@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>全部订阅客户</title>
+</head>
+<body>
+  <table>
+    <tr>
+      <th>姓名</th>
+      <th>公司</th>
+      <th>起始日期</th>
+      <th>截止日期</th>
+      <th>街道</th>
+      <th>门牌号</th>
+      <th>区域</th>
+      <th>城市</th>
+      <th>邮编</th>
+      <th>订阅费</th>
+      <th>电话</th>
+      <th>负责人</th>
+      <th>备注</th>
+    </tr>
+    <% docs.forEach(doc=>{ %>
+      <% var enddate = new Date(doc.enddate); var endstring = enddate.getFullYear()+ '-' +(enddate.getMonth()+1) + '-' + enddate.getDate(); %>
+      <% var startdate = new Date(doc.startdate); var startstring = startdate.getFullYear()+ '-' +(startdate.getMonth()+1) + '-' + startdate.getDate(); %>
+      <tr>
+        <td><%= doc.personname %></td>
+        <td><%= doc.companyname %></td>
+        <td><%= startstring %></td>
+        <td><%= endstring %></td>
+        <td><%= doc.street %></td>
+        <td><%= doc.streetnumber %></td>
+        <td><%= doc.area %></td>
+        <td><%= doc.city %></td>
+        <td><%= doc.tk %></td>
+        <td><%= doc.fee %></td>
+        <td><%= doc.phone %></td>
+        <td><%= doc.responsibleperson %></td>
+        <td><%= doc.comment %></td>
+        <td><a href="/subscribers/recover/<%=doc._id%>" onclick="return confirm('确定要恢复吗？')">恢复</a></td>
+      </tr>
+    <% }); %>
+  </table>
+</body>
+</html>
