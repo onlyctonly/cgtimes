@@ -28,6 +28,26 @@ app.get('/subscribers', (req, res)=>{
   });
 });
 
+//编辑订阅客户
+
+app.get('/subscribers/edit/:id', (req, res)=>{
+  Subsciber.findById(req.params.id).exec((err, doc)=>{
+    if (err) {
+      console.log(err);
+    }
+    res.render('subscribersEdit.ejs', {doc:doc});
+  });
+});
+
+app.post("/subscribers/edit/:id", (req,res)=>{
+  Subsciber.findByIdAndUpdate(req.params.id, req.body, (err,newdoc)=>{
+    if (err) {
+      console.log(err);
+    }
+    res.redirect('/');
+  });
+});
+
 // 显示有效订阅客户
 app.get('/subscribersvalid', (req, res)=>{
   Subsciber.find({valid:true, enddate:{$gt:new Date()}}).sort({personname:1}).exec((err, docs)=>{
@@ -81,6 +101,7 @@ app.get('/subscribersadd', (req,res)=>{
 app.post('/subscribers', (req,res)=>{
   var newsubscriber = new Subsciber(req.body);
   newsubscriber.save();
+  res.redirect('/');
 });
 
 
