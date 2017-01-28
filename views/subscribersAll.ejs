@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>全部订阅客户</title>
-</head>
-<body>
-  <a href="/">首页</a>
-  <table>
+<% include ./partials/header.ejs %>
+  <table class="table table-hover table-striped">
     <tr>
       <th>姓名</th>
       <th>公司</th>
@@ -24,6 +15,8 @@
       <th>负责人</th>
       <th>备注</th>
       <th>国家</th>
+      <th>操作</th>
+      <th>操作</th>
     </tr>
     <% docs.forEach(doc=>{ %>
       <% var enddate = new Date(doc.enddate); var endstring = enddate.getFullYear()+ '-' +(enddate.getMonth()+1) + '-' + enddate.getDate(); %>
@@ -43,10 +36,9 @@
         <td><%= doc.responsibleperson %></td>
         <td><%= doc.comment %></td>
         <td><%= doc.country %></td>
-        <td><a href="/subscribers/delete/<%=doc._id%>" onclick="return confirm('确定要删除吗？')">删除</a></td>
-        <td><a href="/subscribers/edit/<%=doc._id%>" onclick="return confirm('确定要编辑吗？')">编辑</a></td>
+        <td><a class="btn btn-default" href="/subscribers/delete/<%=doc._id%>" onclick="return confirm('确定要删除吗？')">删除</a></td>
+        <td><a class="btn btn-default" href="/subscribers/edit/<%=doc._id%>" onclick="return confirm('确定要编辑吗？')">编辑</a></td>
       </tr>
     <% }); %>
   </table>
-</body>
-</html>
+<% include ./partials/footer.ejs %>

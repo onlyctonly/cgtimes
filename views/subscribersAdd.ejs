@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>添加订阅</title>
-</head>
-<body>
+<% include ./partials/header.ejs %>
   <form action="/subscribers" method="post">
     <label>姓名<input name="personname" type="text"></label><br/>
     <label>公司<input name="companyname" type="text"></label><br/>
@@ -24,5 +16,4 @@
     <label>电话<input name="phone" type="text"></label><br/>
     <input type="submit" onclick="return confirm('确认提交吗？')">
   </form>
-</body>
-</html>
+<% include ./partials/footer.ejs %>

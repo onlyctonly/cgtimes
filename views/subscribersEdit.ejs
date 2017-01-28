@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>编辑订阅</title>
-</head>
-<body>
+<% include ./partials/header.ejs %>
   <form action="/subscribers/edit/<%=doc._id%>" method="POST">
       <% var enddate = new Date(doc.enddate);
       var year = enddate.getFullYear();
@@ -44,5 +36,4 @@
     <label>电话<input name="phone" type="text" value="<%=doc.phone%>"></label><br/>
     <input type="submit" onclick="return confirm('确认提交吗？')">
   </form>
-</body>
-</html>
+<% include ./partials/footer.ejs %>

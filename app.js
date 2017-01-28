@@ -18,13 +18,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //routes
 app.get('/', (req, res)=>{
-    res.render('index.ejs');
+    res.render('index.ejs', {title: "首页"});
 });
 
 // 显示所有的订阅客户
 app.get('/subscribers', (req, res)=>{
   Subsciber.find({valid:true}).sort({personname:1}).exec((err, docs)=>{
-    res.render('subscribersAll.ejs', {docs:docs});
+    res.render('subscribersAll.ejs', {title: "全部订阅", docs:docs});
   });
 });
 
@@ -54,21 +54,21 @@ app.get('/subscribersvalid', (req, res)=>{
     if (docs.length < 1) {
       res.send("无期内订阅客户");
     }
-    res.render('subscribersAll.ejs', {docs:docs});
+    res.render('subscribersAll.ejs', {title:"期内订阅", docs:docs});
   });
 });
 
 //显示失效订阅客户
 app.get('/subscribersinvalid', (req, res)=>{
   Subsciber.find({valid:true, enddate:{$lt:new Date()}}).sort({personname:1}).exec((err, docs)=>{
-    res.render('subscribersAll.ejs', {docs:docs});
+    res.render('subscribersAll.ejs', {title: "到期订阅", docs:docs});
   });
 });
 
 //显示已删除的订阅客户
 app.get('/subscribersdeleted', (req, res)=>{
   Subsciber.find({valid: false}).sort({personname:1}).exec((err, docs)=>{
-    res.render('subscribersDeleted.ejs', {docs:docs});
+    res.render('subscribersDeleted.ejs', {title: "已删除订阅", docs:docs});
   });
 });
 
@@ -96,7 +96,7 @@ app.get('/subscribers/recover/:id',(req, res)=>{
 
 //添加订阅
 app.get('/subscribersadd', (req,res)=>{
-  res.render('subscribersAdd.ejs');
+  res.render('subscribersAdd.ejs', {title: "添加订阅客户"});
 });
 app.post('/subscribers', (req,res)=>{
   var newsubscriber = new Subsciber(req.body);
