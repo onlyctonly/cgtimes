@@ -14,6 +14,7 @@ var Subsciber = require('./model/subscriber.js');
 
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
+app.disable('x-powered-by');
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //routes
