@@ -3,6 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var app = express();
+var bcrypt = require('bcryptjs');
 
 // database
 mongoose.connect("mongodb://localhost/test");
@@ -48,6 +49,7 @@ app.post('/login', (req,res)=>{
   var username = req.body.username;
   var password = req.body.password;
   User.findByCredentials(username, password).then((user)=>{
+    console.log(user);
     if (!user) {
       res.send('登录信息错误');
     }
@@ -71,6 +73,12 @@ app.get('/index', authenticate, (req, res)=>{
 app.get('/subscribers', authenticate, (req, res)=>{
   Subsciber.find({valid:true}).sort({personname:1}).exec((err, docs)=>{
     res.render('subscribersAll.ejs', {title: "全部订阅", docs:docs});
+  });
+});
+
+app.get('/angular', (req, res)=>{
+  Subsciber.find({valid:true}).sort({personname:1}).exec((err, docs)=>{
+    res.render('angular.ejs', {title: "全部订阅", docs:docs});
   });
 });
 
@@ -154,15 +162,19 @@ app.post('/subscribers', (req,res)=>{
 app.post('/users', (req, res)=>{
   var username = req.body.username;
   var password = req.body.password;
-  console.log(username, password);
-  var user = new User({username, password});
-  console.log(user);
-  user.save().then(()=>{
-    return user.genAuthToken();
-  }).then((token)=>{
-    res.header('x-auth', token).send(user);
-  }).catch((e)=>{
-    res.send(e);
+  bcrypt.genSalt(10, function(err, salt) {
+      bcrypt.hash(password, salt, function(err, hash) {
+        password = hash;
+        var user = new User({username, password});
+        user.save().then(()=>{
+          return user.genAuthToken();
+        }).then((token)=>{
+          req.session.token = token;
+          res.status(200).send(user);
+        }).catch((e)=>{
+          res.send(e);
+        });
+      });
   });
 });
 //读取用户资料

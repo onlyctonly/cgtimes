@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
+var bcrypt = require('bcryptjs');
+
 
 var userSchema = new mongoose.Schema({
   username: {type: String, required: true, unique: true},
@@ -32,6 +34,23 @@ userSchema.methods.genAuthToken = function () {
 
 userSchema.statics.findByCredentials = function (username, password) {
   var User=this;
+  return User.findOne({username}).then((user)=>{
+    if (!user) {
+      return Promise.reject();
+    }
+    return new Promise((resolve, reject)=>{
+      bcrypt.compare(password, user.password, (err, res)=>{
+        if (res) {
+          resolve(user);
+        } else {
+          reject("登录信息错误！");
+        }
+      });
+    });
+  });
+
+
+
   return User.findOne({username, password});
 };
 
