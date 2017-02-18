@@ -28,7 +28,7 @@ app.use(session({ secret: 'cgtimes5678',
 var authenticate = (req, res, next) => {
   var token = req.session.token;
   if (!token) {
-    res.send('not authorised');
+    res.redirect('/');
   }
   User.findByToken(token).then((user)=>{
     if (!user) {
@@ -43,13 +43,12 @@ var authenticate = (req, res, next) => {
 
 //login
 app.get('/', (req,res)=>{
-  res.render('login.ejs');
+  res.render('login.ejs', {title: "登录"});
 });
 app.post('/login', (req,res)=>{
   var username = req.body.username;
   var password = req.body.password;
   User.findByCredentials(username, password).then((user)=>{
-    console.log(user);
     if (!user) {
       res.send('登录信息错误');
     }

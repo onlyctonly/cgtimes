@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>JavaScript实现的实时搜索--9IPHP前端特效网(http://tpl.9iphp.com)</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="JavaScript实现的实时搜索功能案例展示页" />
+    <meta name="keywords" content="JS,JavaScript,实时搜索,9IPHP,前端特效">
+    <meta name="robots" content="all">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    html {}
+
+    body {
+        font-family: Roboto, sans-serif;
+        color: #34434b;
+        background-color: #f4fbfc;
+        /*padding: 5rem 1.25rem;*/
+        /* 80 20 */
+    }
+
+    a {
+        color: currentColor;
+        text-decoration: none;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 640px;
+        /* 960 */
+        margin: 0 auto;
+    }
+
+    .container h1 {
+        font-size: 42px;
+        font-weight: 300;
+        color: #5594b3;
+        margin-bottom: 40px;
+    }
+
+    .container h1 a:hover,
+    .container h1 a:focus {
+        color: #a664b7;
+    }
+
+    .container p {
+        line-height: 1.6;
+    }
+
+    .faq {}
+
+    .faq input {
+        width: 100%;
+        height: 60px;
+        font-size: 20px;
+        background-color: #fff;
+        box-shadow: 0px 2px 4px rgba( 52, 67, 75, .2);
+        display: block;
+        padding: 0 20px;
+        margin-bottom: 40px;
+        -webkit-transition: box-shadow .1s linear;
+        transition: box-shadow .1s linear;
+    }
+
+    .faq input::-webkit-input-placeholder {
+        color: #a1bdcb !important;
+    }
+
+    .faq input::-moz-placeholder {
+        color: #a1bdcb !important;
+    }
+
+    .faq input:-ms-input-placeholder {
+        color: #a1bdcb !important;
+    }
+
+    .faq input:focus {
+        box-shadow: 0px 4px 8px rgba( 52, 67, 75, .4);
+    }
+
+    .faq .highlight {
+        background-color: #fffd77;
+    }
+
+    .faq > ul {}
+
+    .faq > ul > li {}
+
+    .faq > ul > li:not(:first-child) {
+        border-top: 1px solid #dcebed;
+        margin-top: 20px;
+        padding-top: 20px;
+    }
+
+    .faq > ul > li.is-hidden {
+        display: none;
+    }
+
+    .faq > ul > li h2 {
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    .faq > ul > li h2:hover,
+    .faq > ul > li h2:focus,
+    .faq > ul > li.is-active h2,
+    .faq > ul > li:target h2 {
+        color: #a664b7;
+    }
+
+    .faq > ul > li > div {
+        display: none;
+    }
+
+    .faq > ul > li.is-active > div,
+    .faq > ul > li:target > div {
+        display: block;
+        margin-top: 10px;
+    }
+
+    .faq__notfound {
+        font-size: 20px;
+        font-style: italic;
+        display: none;
+    }
+
+    .faq__notfound.is-visible {
+        display: block;
+    }
+
+    .container footer {
+        color: #a1bdcb;
+        margin-top: 40px;
+    }
+
+    .container footer a:hover,
+    .container footer a:focus {
+        color: #5594b3;
+    }
+    </style>
+</head>
+
+<body>
+<script src="http://tpl.9iphp.com/demo/9iphp.js"></script>
+    <div class="container" role="main">
+        <h1><a href="http://osvaldas.info/real-time-search-in-javascript">Real-Time Search in JavaScript</a></h1>
+        <div class="faq">
+            <input type="search" value="" placeholder="Type some keywords (e.g. giza, babylon, colossus)" />
+            <ul>
+                <li id="faq-1">
+                    <h2><a href="#faq-1">Great Pyramid of Giza</a></h2>
+                    <div>
+                        <p>The Great Pyramid of Giza (also known as the Pyramid of Khufu or the Pyramid of Cheops) is the oldest and largest of the three pyramids in the Giza Necropolis bordering what is now El Giza, Egypt. It is the oldest of the Seven Wonders of the Ancient World, and the only one to remain largely intact.</p>
+                    </div>
+                </li>
+                <li id="faq-2">
+                    <h2><a href="#faq-2">Hanging Gardens of Babylon</a></h2>
+                    <div>
+                        <p>The Hanging Gardens of Babylon were one of the Seven Wonders of the Ancient World, and the only one whose location has not been definitely established.</p>
+                        <p>The Hanging Gardens were a distinctive feature of ancient Babylon. They were a great source of pride to the people, and were often described in accounts written by visitors to the city. Possibly built by King Nebuchadnezzar II in 600 BC, the gardens are believed to have been a remarkable feat of engineering: an ascending series of tiered gardens containing all manner of trees, shrubs, and vines. The gardens were said to have looked like a large green mountain constructed of mud bricks, rising from the center of the city.</p>
+                    </div>
+                </li>
+                <li id="faq-3">
+                    <h2><a href="#faq-3">Statue of Zeus at Olympia</a></h2>
+                    <div>
+                        <p>The Statue of Zeus at Olympia was a giant seated figure, about 13 m (43 ft) tall, made by the Greek sculptor Phidias around 435 BC at the sanctuary of Olympia, Greece, and erected in the Temple of Zeus there. A sculpture of ivory plates and gold panels over a wooden framework, it represented the god Zeus sitting on an elaborate cedar wood throne ornamented with ebony, ivory, gold and precious stones. It was regarded as one of the Seven Wonders of the Ancient World until its eventual loss and destruction during the 5th century AD. No copy of the statue has ever been found, and details of its form are known only from ancient Greek descriptions and representations on coins.</p>
+                    </div>
+                </li>
+                <li id="faq-4">
+                    <h2><a href="#faq-4">Temple of Artemis</a></h2>
+                    <div>
+                        <p>The Temple of Artemis or Artemision (Greek: Ἀρτεμίσιον, Turkish: Artemis Tapınağı), also known less precisely as the Temple of Diana, was a Greek temple dedicated to the goddess Artemis and is one of the Seven Wonders of the Ancient World. It was located in Ephesus (near the modern town of Selçuk in present-day Turkey), and was completely rebuilt three times before its eventual destruction in 401. Only foundations and sculptural fragments of the latest of the temples at the site remain.</p>
+                    </div>
+                </li>
+                <li id="faq-5">
+                    <h2><a href="#faq-5">Mausoleum at Halicarnassus</a></h2>
+                    <div>
+                        <p>The Mausoleum at Halicarnassus or Tomb of Mausolus (Persian: آرامگاه هالیکارناسوس‎; Modern Greek: Μαυσωλείο της Αλικαρνασσού; Turkish: Halikarnas Mozolesi) was a tomb built between 353 and 350 BC at Halicarnassus (present Bodrum, Turkey) for Mausolus, a satrap in the Persian Empire, and Artemisia II of Caria, who was both his wife and his sister. The structure was designed by the Greek architects Satyros and Pythius of Priene.</p>
+                    </div>
+                </li>
+                <li id="faq-6">
+                    <h2><a href="#faq-6">Colossus of Rhodes</a></h2>
+                    <div>
+                        <p>The Colossus of Rhodes /roʊdz/ (Ancient Greek: ὁ Κολοσσὸς Ῥόδιος ho Kolossòs Rhódios) was a statue of the Greek titan-god of the sun Helios, erected in the city of Rhodes, on the Greek island of the same name, by Chares of Lindos in 280 BC. It is one of the Seven Wonders of the Ancient World. It was constructed to celebrate Rhodes' victory over the ruler of Cyprus, Antigonus I Monophthalmus, whose son unsuccessfully besieged Rhodes in 305 BC. Before its destruction in the earthquake of 226 BC, the Colossus of Rhodes stood over 30 metres (98 feet) high, making it one of the tallest statues of the ancient world.</p>
+                    </div>
+                </li>
+                <li id="faq-7">
+                    <h2><a href="#faq-7">Lighthouse of Alexandria</a></h2>
+                    <div>
+                        <p>The Lighthouse of Alexandria, sometimes called the Pharos of Alexandria (/ˈfɛərɒs/; Ancient Greek: ὁ Φάρος τῆς Ἀλεξανδρείας), was a lighthouse built by the Ptolemaic Kingdom between 280 and 247 BC which was between 393 and 450 ft (120 and 137 m) tall. It was one of the tallest man-made structures in the world for many centuries, and was regarded as one of the Seven Wonders of the Ancient World. Badly damaged by three earthquakes between AD 956 and 1323, it then became an abandoned ruin. It was the third longest surviving ancient wonder (after the Mausoleum at Halicarnassus and the extant Great Pyramid of Giza) until in 1480 the last of its remnant stones were used to build the Citadel of Qaitbay on the site. In 1994, French archaeologists discovered some remains of the lighthouse on the floor of Alexandria's Eastern Harbour.</p>
+                    </div>
+                </li>
+            </ul>
+            <div class="faq__notfound">
+                <p>No matches were found&hellip; Try &ldquo;giza&rdquo;.</p>
+            </div>
+        </div>
+    </div>
+    <!--
+
+    JQUERY DEPENDENCY
+-->
+    <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+    'use strict';
+
+
+    // search & highlight
+
+    ;
+    (function($, window, document, undefined) {
+        var $container = $('.faq');
+        if (!$container.length) return true;
+
+        var $input = $container.find('input'),
+            $notfound = $container.find('.faq__notfound'),
+            $items = $container.find('> ul > li'),
+            $item = $(),
+            itemsIndexed = [];
+
+        $items.each(function() {
+            itemsIndexed.push($(this).text().replace(/\s{2,}/g, ' ').toLowerCase());
+        });
+
+        $input.on('keyup', function(e) {
+            if (e.keyCode == 13) // enter
+            {
+                $input.trigger('blur');
+                return true;
+            }
+
+            $items.each(function() {
+                $item = $(this);
+                $item.html($item.html().replace(/<span class="highlight">([^<]+)<\/span>/gi, '$1'));
+            });
+
+            var searchVal = $.trim($input.val()).toLowerCase();
+            if (searchVal.length) {
+                for (var i in itemsIndexed) {
+                    $item = $items.eq(i);
+                    if (itemsIndexed[i].indexOf(searchVal) != -1)
+                        $item.removeClass('is-hidden').html($item.html().replace(new RegExp(searchVal + '(?!([^<]+)?>)', 'gi'), '<span class="highlight">$&</span>'));
+                    else
+                        $item.addClass('is-hidden');
+                }
+            } else $items.removeClass('is-hidden');
+
+            $notfound.toggleClass('is-visible', $items.not('.is-hidden').length == 0);
+        });
+    })(jQuery, window, document);
+
+
+    // toggling items on title press
+
+    ;
+    (function($, window, document, undefined) {
+        $(document).on('click', '.faq h2 a', function(e) {
+            e.preventDefault();
+            $(this).parents('li').toggleClass('is-active');
+        });
+    })(jQuery, window, document);
+
+
+    // auto-show item content when show results reduces to single
+
+    ;
+    (function($, window, document, undefined) {
+        var $container = $('.faq');
+        if (!$container.length) return true;
+
+        var $input = $container.find('input'),
+            $items = $container.find('> ul > li'),
+            $item = $();
+
+        $input.on('keyup', function() {
+            $item = $items.not('.is-hidden');
+            if ($item.length == 1)
+                $item.addClass('js--autoshown is-active');
+            else
+                $items.filter('.js--autoshown').removeClass('js--autoshown is-active');
+        });
+    })(jQuery, window, document);
+    </script>
+
+    <!--
+
+    NO DEPENDENCIES (IE9+ support)
+
+<script>
+
+    'use strict';
+
+    ;( function ( document, window, index )
+    {
+        var hasElementClass     = function( element, className ){ return element.classList ? element.classList.contains( className ) : new RegExp( '(^| )' + className + '( |$)', 'gi' ).test( element.className ); },
+            addElementClass     = function( element, className ){ element.classList ? element.classList.add( className ) : element.className += ' ' + className; },
+            removeElementClass  = function( element, className ){ element.classList ? element.classList.remove( className ) : element.className = element.className.replace( new RegExp( '(^|\\b)' + className.split( ' ' ).join( '|' ) + '(\\b|$)', 'gi' ), ' ' ); };
+
+
+        // search & highlight
+
+        ;( function ( document, window, index )
+        {
+            var container = document.querySelector( '.faq' );
+            if( !container ) return true;
+
+            var input           = container.querySelector( 'input' ),
+                notfound        = container.querySelector( '.faq__notfound' ),
+                items           = document.querySelectorAll( '.faq > ul > li' ),
+                item            = {},
+                itemsIndexed    = [];
+
+            [].forEach.call( items, function( entry )
+            {
+                itemsIndexed.push( entry.textContent.replace( /\s{2,}/g, ' ' ).toLowerCase() );
+            });
+
+            input.addEventListener( 'keyup', function( e )
+            {
+                if( e.keyCode == 13 ) // enter
+                {
+                    input.blur();
+                    return true;
+                }
+
+                [].forEach.call( items, function( entry )
+                {
+                    entry.innerHTML = entry.innerHTML.replace( /<span class="highlight">([^<]+)<\/span>/gi, '$1' );
+                });
+
+                var searchVal = input.value.trim().toLowerCase();
+                if( searchVal.length )
+                {
+                    itemsIndexed.forEach( function( entry, i )
+                    {
+                        if( itemsIndexed[ i ].indexOf( searchVal ) != -1 )
+                        {
+                            removeElementClass( items[ i ], 'is-hidden' );
+                            items[ i ].innerHTML = items[ i ].innerHTML.replace( new RegExp( searchVal+'(?!([^<]+)?>)', 'gi' ), '<span class="highlight">$&</span>' );
+                        }
+                        else
+                            addElementClass( items[ i ], 'is-hidden' );
+                    });
+                }
+                else [].forEach.call( items, function( entry ){ removeElementClass( entry, 'is-hidden' ); });
+
+                if( items.length == [].filter.call( items, function( entry ){ return hasElementClass( entry, 'is-hidden' ) } ).length )
+                    addElementClass( notfound, 'is-visible' );
+                else
+                    removeElementClass( notfound, 'is-visible' );
+
+            });
+        }( document, window, 0 ));
+
+
+        // toggling items on title press
+
+        ;( function ( document, window, index )
+        {
+            [].forEach.call( document.querySelectorAll( '.faq h2 a' ), function( entry )
+            {
+                addElementClass( entry, 'js--is-toggleable-item' );
+            });
+
+            document.addEventListener( 'click', function( e )
+            {
+                if( hasElementClass( e.target, 'js--is-toggleable-item' ) )
+                {
+                    e.preventDefault();
+                    var current = e.target;
+                    while( current.parentNode )
+                    {
+                        current = current.parentNode;
+                        if( current.tagName.toLowerCase() == 'li' )
+                        {
+                            hasElementClass( current, 'is-active' ) ? removeElementClass( current, 'is-active' ) : addElementClass( current, 'is-active' );
+                            break;
+                        }
+                    }
+                }
+            });
+        }( document, window, 0 ));
+
+
+        // auto-show item content when show results reduces to single
+
+        ;( function ( document, window, index )
+        {
+            var container = document.querySelector( '.faq' );
+            if( !container ) return true;
+
+            var input   = container.querySelector( 'input' ),
+                items   = document.querySelectorAll( '.faq > ul > li' ),
+                item    = {};
+
+            input.addEventListener( 'keyup', function( e )
+            {
+                item = [].filter.call( items, function( entry ){ return !hasElementClass( entry, 'is-hidden' ); } )
+
+                if( item.length == 1 )
+                {
+                    addElementClass( item[ 0 ], 'js--autoshown' );
+                    addElementClass( item[ 0 ], 'is-active' );
+                }
+                else
+                    [].forEach.call( items, function( entry )
+                    {
+                        if( hasElementClass( entry, 'js--autoshown' ) )
+                        {
+                            removeElementClass( entry, 'js--autoshown' );
+                            removeElementClass( entry, 'is-active' );
+                        }
+                    });
+            });
+        }( document, window, 0 ));
+
+    }( document, window, 0 ));
+
+</script>
+
+-->
+</body>
+
+</html>

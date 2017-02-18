@@ -1,19 +1,23 @@
 <% include ./partials/header.ejs %>
-  <form action="/subscribers" method="post">
-    <label>姓名<input name="personname" type="text"></label><br/>
-    <label>公司<input name="companyname" type="text"></label><br/>
-    <label>起始日期<input name="startdate" type="date"></label><br/>
-    <label>截止日期<input name="enddate" type="date"></label><br/>
-    <label>街道<input name="street" type="text"></label><br/>
-    <label>门牌号<input name="streetnumber" type="text"></label><br/>
-    <label>区域<input name="area" type="text"></label><br/>
-    <label>城市<input name="city" type="text"></label><br/>
-    <label>邮编<input name="tk" type="text"></label><br/>
-    <label>国家<input name="country" type="text"></label><br/>
-    <label>订阅费<input name="fee" type="text"></label><br/>
-    <label>备注<input name="comment" type="text"></label><br/>
-    <label>收款人<input name="responsibleperson" type="text"></label><br/>
-    <label>电话<input name="phone" type="text"></label><br/>
-    <input type="submit" onclick="return confirm('确认提交吗？')">
-  </form>
+<div class="container-fluid">
+  <div class="row">
+    <form action="/subscribers" method="post" class="text-center">
+      <label>姓名<input name="personname" type="text"></label><br/>
+      <label>公司<input name="companyname" type="text"></label><br/>
+      <label>起始日期<input name="startdate" type="date"></label><br/>
+      <label>截止日期<input name="enddate" type="date"></label><br/>
+      <label>街道<input name="street" type="text"></label><br/>
+      <label>门牌号<input name="streetnumber" type="text"></label><br/>
+      <label>区域<input name="area" type="text"></label><br/>
+      <label>城市<input name="city" type="text"></label><br/>
+      <label>邮编<input name="tk" type="text"></label><br/>
+      <label>国家<input name="country" type="text"></label><br/>
+      <label>订阅费<input name="fee" type="text"></label><br/>
+      <label>备注<input name="comment" type="text"></label><br/>
+      <label>收款人<input name="responsibleperson" type="text"></label><br/>
+      <label>电话<input name="phone" type="text"></label><br/>
+      <input type="submit" class="btn btn-primary" onclick="return confirm('确认提交吗？')">
+    </form>
+  </div>
+</div>
 <% include ./partials/footer.ejs %>
