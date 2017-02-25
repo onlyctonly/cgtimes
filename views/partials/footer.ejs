@@ -1,2 +1,13 @@
+<script type="text/javascript">
+  $(function(){
+    $("#search").keyup(function(){
+      $("tr").hide();
+      $("tr").filter(":contains('"+ $(this).val() + "')").show();
+      if ($(this).val()='') {
+        $("tr").show();
+      }
+    })
+  })
+</script>
 </body>
 </html>
