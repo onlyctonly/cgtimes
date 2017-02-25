@@ -154,28 +154,28 @@ app.get('/subscribersadd', authenticate, (req,res)=>{
 app.post('/subscribers', (req,res)=>{
   var newsubscriber = new Subsciber(req.body);
   newsubscriber.save();
-  res.redirect('/');
+  res.redirect('/subscribers');
 });
 
 //添加注册用户
-app.post('/users', (req, res)=>{
-  var username = req.body.username;
-  var password = req.body.password;
-  bcrypt.genSalt(10, function(err, salt) {
-      bcrypt.hash(password, salt, function(err, hash) {
-        password = hash;
-        var user = new User({username, password});
-        user.save().then(()=>{
-          return user.genAuthToken();
-        }).then((token)=>{
-          req.session.token = token;
-          res.status(200).send(user);
-        }).catch((e)=>{
-          res.send(e);
-        });
-      });
-  });
-});
+  // app.post('/users', (req, res)=>{
+  //   var username = req.body.username;
+  //   var password = req.body.password;
+  //   bcrypt.genSalt(10, function(err, salt) {
+  //       bcrypt.hash(password, salt, function(err, hash) {
+  //         password = hash;
+  //         var user = new User({username, password});
+  //         user.save().then(()=>{
+  //           return user.genAuthToken();
+  //         }).then((token)=>{
+  //           req.session.token = token;
+  //           res.status(200).send(user);
+  //         }).catch((e)=>{
+  //           res.send(e);
+  //         });
+  //       });
+  //   });
+  // });
 //读取用户资料
 app.get('/users/me', authenticate, (req, res)=>{
   res.send(req.user);
