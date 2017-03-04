@@ -15,6 +15,7 @@
       <th>负责人</th>
       <th>备注</th>
       <th>国家</th>
+      <th>订阅版面</th>
       <th>操作</th>
       <th>操作</th>
     </tr>
@@ -36,6 +37,7 @@
         <td><%= doc.responsibleperson %></td>
         <td><%= doc.comment %></td>
         <td><%= doc.country %></td>
+        <td><%= doc.pages %></td>
         <td><a class="btn btn-default" href="/subscribers/delete/<%=doc._id%>" onclick="return confirm('确定要删除吗？')">删除</a></td>
         <td><a class="btn btn-default" href="/subscribers/edit/<%=doc._id%>" onclick="return confirm('确定要编辑吗？')">编辑</a></td>
       </tr>

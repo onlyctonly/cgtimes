@@ -15,6 +15,7 @@ var subscriberSchema = new mongoose.Schema({
     comment: String,
     responsibleperson: String,
     phone: String,
+    pages: Number,
     valid: {type:Boolean, default: true}
 });
 

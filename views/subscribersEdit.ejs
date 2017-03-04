@@ -33,6 +33,10 @@
     <label>订阅费<input name="fee" type="text" value="<%=doc.fee%>"></label><br/>
     <label>备注<input name="comment" type="text" value="<%=doc.comment%>"></label><br/>
     <label>收款人<input name="responsibleperson" type="text" value="<%=doc.responsibleperson%>"></label><br/>
+    <label>订阅版面<select name="pages">
+      <option value="32" selected>32</option>
+      <option value="8">8</option>
+    </select></label><br>
     <label>电话<input name="phone" type="text" value="<%=doc.phone%>"></label><br/>
     <input type="submit" onclick="return confirm('确认提交吗？')">
   </form>

@@ -88,7 +88,7 @@ app.get('/subscribers/edit/:id', authenticate, (req, res)=>{
     if (err) {
       console.log(err);
     }
-    res.render('subscribersEdit.ejs', {doc:doc});
+    res.render('subscribersEdit.ejs', {title: "edit", doc:doc});
   });
 });
 
@@ -97,7 +97,7 @@ app.post("/subscribers/edit/:id", authenticate, (req,res)=>{
     if (err) {
       console.log(err);
     }
-    res.redirect('/');
+    res.redirect('/subscribers');
   });
 });
 
