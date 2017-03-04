@@ -22,7 +22,7 @@
     <% docs.forEach(doc=>{ %>
       <% var enddate = new Date(doc.enddate); var endstring = enddate.getFullYear()+ '-' +(enddate.getMonth()+1) + '-' + enddate.getDate(); %>
       <% var startdate = new Date(doc.startdate); var startstring = startdate.getFullYear()+ '-' +(startdate.getMonth()+1) + '-' + startdate.getDate(); %>
-      <tr>
+      <tr class="subscribers">
         <td><%= doc.personname %></td>
         <td><%= doc.companyname %></td>
         <td><%= startstring %></td>

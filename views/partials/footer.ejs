@@ -1,10 +1,10 @@
 <script type="text/javascript">
   $(function(){
     $("#search").keyup(function(){
-      $("tr").hide();
-      $("tr").filter(":contains('"+ $(this).val() + "')").show();
-      if ($(this).val()='') {
-        $("tr").show();
+      $("tr.subscribers").hide();
+      $("tr.subscribers").filter(":contains('"+ $("#search").val() + "')").show();
+      if ($("#search").val()='') {
+        $("tr.subscribers").show();
       }
     })
   })

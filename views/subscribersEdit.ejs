@@ -20,24 +20,74 @@
       if (!monthstring2[1]){monthstring2 = "0" + monthstring2;}
       if (!datestring2[1]){datestring2 = "0" + datestring2;}
       var startstring = yearstring2+ '-' + monthstring2 + '-' + datestring2; %>
-    <label>姓名<input name="personname" type="text" value="<%=doc.personname%>"></label><br/>
-    <label>公司<input name="companyname" type="text" value="<%=doc.companyname%>"></label><br/>
-    <label>起始日期<input name="startdate" type="date" value="<%=startstring%>"></label><br/>
-    <label>截止日期<input name="enddate" type="date" value="<%=endstring%>"></label><br/>
-    <label>街道<input name="street" type="text" value="<%=doc.street%>"></label><br/>
-    <label>门牌号<input name="streetnumber" type="text" value="<%=doc.streetnumber%>"></label><br/>
-    <label>区域<input name="area" type="text" value="<%=doc.area%>"></label><br/>
-    <label>城市<input name="city" type="text" value="<%=doc.city%>"></label><br/>
-    <label>邮编<input name="tk" type="text" value="<%=doc.tk%>"></label><br/>
-    <label>国家<input name="country" type="text" value="<%=doc.country%>"></label><br/>
-    <label>订阅费<input name="fee" type="text" value="<%=doc.fee%>"></label><br/>
-    <label>备注<input name="comment" type="text" value="<%=doc.comment%>"></label><br/>
-    <label>收款人<input name="responsibleperson" type="text" value="<%=doc.responsibleperson%>"></label><br/>
-    <label>订阅版面<select name="pages">
-      <option value="32" selected>32</option>
-      <option value="8">8</option>
-    </select></label><br>
-    <label>电话<input name="phone" type="text" value="<%=doc.phone%>"></label><br/>
-    <input type="submit" onclick="return confirm('确认提交吗？')">
+      <table class="table">
+        <tr >
+          <td class="adding">姓名</td>
+          <td><input name="personname" type="text" value="<%=doc.personname%>"></td>
+        </tr>
+        <tr >
+          <td class="adding">公司</td>
+          <td><input name="companyname" type="text" value="<%=doc.companyname%>"></td>
+        </tr>
+        <tr >
+          <td class="adding">起始日期</td>
+          <td><input name="startdate" type="date" value="<%=startstring%>"></td>
+        </tr>
+        <tr >
+          <td class="adding">截止日期</td>
+          <td><input name="enddate" type="date" value="<%=endstring%>"></td>
+        </tr>
+        <tr >
+          <td class="adding">街道</td>
+          <td><input name="street" type="text" value="<%=doc.street%>"></td>
+        </tr>
+        <tr >
+          <td class="adding">门牌号</td>
+          <td><input name="streetnumber" type="text" value="<%=doc.streetnumber%>"></td>
+        </tr>
+        <tr >
+          <td class="adding">区域</td>
+          <td><input name="area" type="text" value="<%=doc.area%>"></td>
+        </tr>
+        <tr >
+          <td class="adding">城市</td>
+          <td><input name="city" type="text" value="<%=doc.city%>"></td>
+        </tr>
+        <tr >
+          <td class="adding">邮编</td>
+          <td><input name="tk" type="text" value="<%=doc.tk%>"></td>
+        </tr>
+        <tr >
+          <td class="adding">国家</td>
+          <td><input name="country" type="text" value="<%=doc.country%>"></td>
+        </tr>
+        <tr >
+          <td class="adding">订阅费</td>
+          <td><input name="fee" type="text" value="<%=doc.fee%>"></td>
+        </tr>
+        <tr >
+          <td class="adding">备注</td>
+          <td><input name="comment" type="text" value="<%=doc.comment%>"></td>
+        </tr>
+        <tr >
+          <td class="adding">收款人</td>
+          <td><input name="responsibleperson" type="text" value="<%=doc.responsibleperson%>"></td>
+        </tr>
+        <tr >
+          <td class="adding">订阅版面</td>
+          <td><select name="pages">
+            <option value="32" selected>32</option>
+            <option value="8">8</option>
+          </select></td>
+        </tr>
+        <tr >
+          <td class="adding">电话</td>
+          <td><input name="phone" type="text" value="<%=doc.phone%>"></td>
+        </tr>
+        <tr >
+          <td class="adding"></td>
+          <td><input type="submit" onclick="return confirm('确认提交吗？')"></td>
+        </tr>
+      </table>
   </form>
 <% include ./partials/footer.ejs %>
